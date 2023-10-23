@@ -4,6 +4,15 @@ import numpy as np
 # 读取视频文件
 cap = cv2.VideoCapture(r'E:\PythonCode\DeepLearning\CV\data\test.mp4')
 
+# 获取视频帧率和尺寸
+fps = int(cap.get(cv2.CAP_PROP_FPS))
+width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+# 创建输出视频的writer
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter('output.mp4', fourcc, fps, (width, height))
+
 # 读取第一帧
 ret, frame1 = cap.read()
 prvs = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
@@ -51,6 +60,9 @@ while True:
 
     img = cv2.add(frame2, mask)
 
+    # 将帧写入输出视频
+    out.write(img)
+
     # 显示结果
     cv2.imshow('frame', img)
     if cv2.waitKey(10) & 0xFF == ord('q'):
@@ -62,4 +74,5 @@ while True:
 
 # 释放资源
 cap.release()
+out.release()
 cv2.destroyAllWindows()

@@ -25,10 +25,7 @@ img_balanced[:, :, 2] *= gain_r
 
 # 将图像转换回整数类型
 img_balanced = (img_balanced ).astype(np.uint8)
-# print(img)
-# print('-------------------')
-# print(img_balanced)
-# 将增益校正后的图像和初始图像合并在一起
+
 img_concat = np.concatenate((img, img_balanced), axis=1)
 
 # 显示合并后的图像
